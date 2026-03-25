@@ -1,24 +1,18 @@
-import colors from 'tailwindcss/colors';
-
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ["./src/**/*.{html,js,jsx}"],
+export default {
+  content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
       colors: {
-        ...colors,
-        softBlue: {
-          DEFAULT: '#ECF0F1',
-          1: '#EAEDEE'
+        dark: {
+          DEFAULT: '#0c0c13',
+          surface: '#13131f',
+          card: '#1a1a2e',
         },
-        softBlack: {
-          DEFAULT: '#4c4c4c',
-          1: '#303030'
-        }
       },
-      boxShadow: {
-        evenly: '1px -2px 22px -10px rgba(0,0,0,0.89)'
-      }
+      fontFamily: {
+        sans: ['Kodchasan', 'sans-serif'],
+      },
     },
   },
   plugins: [],

@@ -1,30 +1,43 @@
-import React from 'react'
 import github from '../assets/icons/github.svg'
 import linkedin from '../assets/icons/linkedin.svg'
-import phone from '../assets/icons/phone.svg';
-import email from '../assets/icons/email.svg';
-// import peruFlag from '../assets/images/peru-flag.png';
+import email from '../assets/icons/email.svg'
 
 export default function Footer() {
   return (
-    <footer id='contact' className="w-full flex flex-col py-9 px-5 shadow-md items-center bg-slate-50">
-      <h2 className="text-center text-base text-softBlack-1 font-medium mb-2">GET IN TOUCH!</h2>
-      <a className="text-sm p-2 flex items-center no-underline" href="mailto:fiorella_chilcon@outlook.com" target="_blank" rel="noreferrer">
-        <img className="h-4 mx-2" src={email} alt='email'/>
-        fiorella_chilcon@outlook.com
-      </a>
-      <a className="text-sm p-2 flex items-center no-underline" href="tel:+61406868217">
-        <img className="h-4 mx-2" src={phone} alt='phone'/>
-        +61 4068 68217
-        {/* <img src={peruFlag} className='rounded-sm border border-slate-50' alt='peru'/> */}
-      </a>
-      <div className="flex flex-row">
-        <a className="size-11 flex" target="_blank" href="https://github.com/FiorellaChilcon" rel="noreferrer">
-          <img className="h-6 hover:h-7 m-auto" src={github} alt='github'/>
+    <footer id="contact" className="py-20 px-6 border-t border-white/10">
+      <div className="max-w-5xl mx-auto text-center">
+        <h2 className="text-3xl font-semibold text-white mb-4">
+          Get in{' '}
+          <span className="bg-gradient-to-r from-teal-400 to-amber-400 bg-clip-text text-transparent">
+            Touch
+          </span>
+        </h2>
+        <p className="text-slate-400 text-base mb-8 max-w-md mx-auto leading-relaxed">
+          Open to new opportunities, collaborations, or just a good conversation!
+        </p>
+
+        <a
+          href="mailto:fiorella_chilcon@outlook.com"
+          className="inline-block px-8 py-3 bg-teal-600 hover:bg-teal-500 text-white rounded-lg font-medium transition-colors mb-10 text-sm"
+        >
+          Say Hello
         </a>
-        <a className="size-11 flex" target="_blank" href="https://www.linkedin.com/in/fiorella-chilcon/" rel="noreferrer">
-          <img className="h-6 hover:h-7 m-auto" src={linkedin} alt='linkedin'/>
-        </a>
+
+        <div className="flex justify-center gap-6 mb-10">
+          <a href="https://github.com/FiorellaChilcon" target="_blank" rel="noreferrer" aria-label="GitHub">
+            <img src={github} alt="GitHub" className="h-5 invert opacity-40 hover:opacity-100 transition-opacity" />
+          </a>
+          <a href="https://www.linkedin.com/in/fiorella-chilcon/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+            <img src={linkedin} alt="LinkedIn" className="h-5 invert opacity-40 hover:opacity-100 transition-opacity" />
+          </a>
+          <a href="mailto:fiorella_chilcon@outlook.com" aria-label="Email">
+            <img src={email} alt="Email" className="h-5 invert opacity-40 hover:opacity-100 transition-opacity" />
+          </a>
+        </div>
+
+        <p className="text-slate-600 text-xs">
+          Designed & built by Fiorella Chilcon · {new Date().getFullYear()}
+        </p>
       </div>
     </footer>
   )
