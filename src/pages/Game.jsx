@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
+import Section from '../components/Section'
 import Phaser from 'phaser'
 
-const GAME_H     = 260
-const GROUND_Y   = 205    // feet-level Y
+const GAME_H     = 230
+const GROUND_Y   = 190    // feet-level Y
 const GRAVITY    = 1200   // px/s²
 const JUMP_VEL   = -450   // px/s  (negative = up)
 const INIT_SPEED = 200    // px/s
@@ -21,7 +21,7 @@ class RunnerScene extends Phaser.Scene {
 
     // Ground line
     this.add.graphics()
-      .lineStyle(1, 0x334155, 0.5)
+      .lineStyle(1, 0xd3cfc5, 1)
       .lineBetween(0, GROUND_Y, W, GROUND_Y)
 
     // Pre-generate obstacle textures (once, reused every spawn)
@@ -32,10 +32,10 @@ class RunnerScene extends Phaser.Scene {
       g.generateTexture(key, w, h)
       g.destroy()
     }
-    makeTexture('obs-tall',  12, 52, 0x0d9488)  // teal
-    makeTexture('obs-short', 18, 30, 0xd97706)  // amber
+    makeTexture('obs-tall',  12, 52, 0xa84a26)  // accent
+    makeTexture('obs-short', 18, 30, 0x55524a)  // neutral
 
-    // Llama — plain sprite, NO physics (we handle physics manually)
+    // Llama: plain sprite, NO physics (we handle physics manually)
     this.llama    = this.add.sprite(90, GROUND_Y, 'llama')
     this.llama.setScale(0.13).setOrigin(0.5, 1)
     this.llamaVY  = 0
@@ -44,9 +44,10 @@ class RunnerScene extends Phaser.Scene {
     // Score
     this.scoreVal  = 0
     this.scoreText = this.add.text(W - 12, 10, '00000', {
-      fontFamily: 'Kodchasan, monospace',
+      fontFamily: 'IBM Plex Mono, monospace',
+      letterSpacing: 1.5,
       fontSize: '13px',
-      color: '#475569',
+      color: '#6e6a61',
     }).setOrigin(1, 0)
 
     // Game state
@@ -59,31 +60,35 @@ class RunnerScene extends Phaser.Scene {
 
     // Overlays
     const cx = W / 2, cy = GROUND_Y / 2
-    this.promptText = this.add.text(cx, cy, 'Press  Space  or  tap  to  start', {
-      fontFamily: 'Kodchasan, sans-serif',
+    this.promptText = this.add.text(cx, cy, 'PRESS SPACE OR TAP TO START', {
+      fontFamily: 'IBM Plex Mono, monospace',
+      letterSpacing: 1.5,
       fontSize: '14px',
-      color: '#64748b',
+      color: '#6e6a61',
     }).setOrigin(0.5)
 
-    this.overlayBg = this.add.rectangle(cx, cy, W, GAME_H, 0x000000, 0)
-    this.goTitle   = this.add.text(cx, cy - 22, 'Game Over', {
-      fontFamily: 'Kodchasan, sans-serif',
+    this.overlayBg = this.add.rectangle(cx, cy, W, GAME_H, 0xefece4, 0)
+    this.goTitle   = this.add.text(cx, cy - 22, 'GAME OVER', {
+      fontFamily: 'IBM Plex Mono, monospace',
+      letterSpacing: 1.5,
       fontSize: '20px',
-      color: '#f1f5f9',
+      color: '#191813',
       fontStyle: 'bold',
     }).setOrigin(0.5).setVisible(false)
     this.goScore   = this.add.text(cx, cy + 4, '', {
-      fontFamily: 'Kodchasan, sans-serif',
+      fontFamily: 'IBM Plex Mono, monospace',
+      letterSpacing: 1.5,
       fontSize: '13px',
-      color: '#fbbf24',
+      color: '#a84a26',
     }).setOrigin(0.5).setVisible(false)
-    this.goRestart = this.add.text(cx, cy + 24, 'Press Space to try again', {
-      fontFamily: 'Kodchasan, sans-serif',
+    this.goRestart = this.add.text(cx, cy + 24, 'PRESS SPACE TO TRY AGAIN', {
+      fontFamily: 'IBM Plex Mono, monospace',
+      letterSpacing: 1.5,
       fontSize: '12px',
-      color: '#64748b',
+      color: '#6e6a61',
     }).setOrigin(0.5).setVisible(false)
 
-    // Input — event-driven, never misses a press
+    // Input: event-driven, never misses a press
     this.input.keyboard.on('keydown-SPACE', () => this.handleAction())
     this.input.on('pointerdown', () => this.handleAction())
 
@@ -163,7 +168,7 @@ class RunnerScene extends Phaser.Scene {
     this.isOver  = true
     this.tweens.killTweensOf(this.llama)
     this.llama.setTexture('llamaDead').setY(GROUND_Y)
-    this.tweens.add({ targets: this.overlayBg, alpha: 0.55, duration: 300 })
+    this.tweens.add({ targets: this.overlayBg, alpha: 0.45, duration: 300 })
     this.goTitle.setVisible(true)
     this.goScore.setText(`Score: ${this.scoreVal}`).setVisible(true)
     this.goRestart.setVisible(true)
@@ -216,11 +221,11 @@ export default function Game() {
       parent:          divRef.current,
       width:           divRef.current.offsetWidth || 700,
       height:          GAME_H,
-      backgroundColor: '#0a0a10',
+      backgroundColor: '#efece4',
       scene:           [RunnerScene],
     })
 
-    // Window-level Space handler — works even when canvas isn't focused
+    // Window-level Space handler: works even when canvas isn't focused
     const onSpace = (e) => {
       if (e.code !== 'Space') return
       e.preventDefault()
@@ -237,32 +242,29 @@ export default function Game() {
   }, [])
 
   return (
-    <section id="game" className="py-24 px-6">
-      <div className="max-w-5xl mx-auto">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-3xl font-semibold text-center mb-3 text-white"
-        >
-          Need a{' '}
-          <span className="bg-gradient-to-r from-teal-400 to-amber-400 bg-clip-text text-transparent">
-            Break?
-          </span>
-        </motion.h2>
-        <p className="text-slate-500 text-sm text-center mb-10">
-          Press{' '}
-          <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-slate-300 text-xs font-mono">
-            Space
-          </kbd>{' '}
-          to jump · avoid the obstacles
-        </p>
-        <div
-          ref={divRef}
-          className="w-full rounded-2xl overflow-hidden border border-white/10"
-        />
+    <Section id="game" className="pb-24 pt-8 sm:pb-28">
+      <div className="rule flex items-baseline justify-between gap-6 pt-4">
+        <div className="flex items-baseline gap-4">
+          <span className="label">04</span>
+          <span className="label">Interlude</span>
+        </div>
+        <span className="label hidden sm:block">Not part of the CV</span>
       </div>
-    </section>
+
+      <div className="mt-10 grid grid-cols-12 gap-x-8 gap-y-6">
+        <p className="col-span-12 max-w-md font-display text-2xl leading-snug text-ink lg:col-span-4">
+          You&apos;ve scrolled this far. Here&apos;s a llama.
+        </p>
+        <p className="col-span-12 self-end font-mono text-xs text-ink-muted lg:col-span-4 lg:col-start-9 lg:text-right">
+          <kbd className="border border-ink/20 px-1.5 py-0.5 text-ink">Space</kbd>{' '}
+          or tap to jump
+        </p>
+      </div>
+
+      <div
+        ref={divRef}
+        className="mt-10 w-full overflow-hidden border border-ink/15 bg-canvas-raised"
+      />
+    </Section>
   )
 }

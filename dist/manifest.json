@@ -1,6 +1,6 @@
 {
-  "name": "Fiorella Chilcon",
-  "short_name": "Fiorella Chilcon",
+  "name": "Fiorella Chilcón — Full-stack developer",
+  "short_name": "Fiorella Chilcón",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -14,7 +14,7 @@
     }
   ],
   "start_url": ".",
-  "theme_color": "#000000",
-  "background_color": "#000000",
+  "theme_color": "#F7F5F0",
+  "background_color": "#F7F5F0",
   "display": "standalone"
 }

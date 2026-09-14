@@ -1,44 +1,69 @@
-import github from '../assets/icons/github.svg'
-import linkedin from '../assets/icons/linkedin.svg'
-import email from '../assets/icons/email.svg'
+import Section from '../components/Section'
+import Reveal from './Reveal'
+
+const elsewhere = [
+  { label: 'Email', value: 'fiorella_chilcon@outlook.com', href: 'mailto:fiorella_chilcon@outlook.com' },
+  { label: 'LinkedIn', value: '/in/fiorella-chilcon', href: 'https://www.linkedin.com/in/fiorella-chilcon/' },
+  { label: 'GitHub', value: '@FiorellaChilcon', href: 'https://github.com/FiorellaChilcon' },
+]
 
 export default function Footer() {
   return (
-    <footer id="contact" className="py-20 px-6 border-t border-white/10">
-      <div className="max-w-5xl mx-auto text-center">
-        <h2 className="text-3xl font-semibold text-white mb-4">
-          Get in{' '}
-          <span className="bg-gradient-to-r from-teal-400 to-amber-400 bg-clip-text text-transparent">
-            Touch
-          </span>
-        </h2>
-        <p className="text-slate-400 text-base mb-8 max-w-md mx-auto leading-relaxed">
-          Open to new opportunities, collaborations, or just a good conversation!
-        </p>
+    <footer className="relative z-[2] border-t border-ink/15">
+      <Section id="contact" className="pb-14 pt-24 sm:pt-28">
+        <div className="grid grid-cols-12 gap-x-8 gap-y-14">
+          <Reveal className="col-span-12 lg:col-span-7">
+            <p className="label mb-8 flex items-baseline gap-4">
+              <span>05</span>
+              <span>Contact</span>
+            </p>
+            <h2 className="font-display text-display-sm text-ink">
+              Say hello.
+            </h2>
+            <p className="mt-8 max-w-md text-[17px] leading-relaxed text-ink-soft">
+              This page is just a record of what I&apos;ve built and what I work
+              with. If you want to collaborate or work together, feel free to
+              email me.
+            </p>
+          </Reveal>
 
-        <a
-          href="mailto:fiorella_chilcon@outlook.com"
-          className="inline-block px-8 py-3 bg-teal-600 hover:bg-teal-500 text-white rounded-lg font-medium transition-colors mb-10 text-sm"
-        >
-          Say Hello
-        </a>
-
-        <div className="flex justify-center gap-6 mb-10">
-          <a href="https://github.com/FiorellaChilcon" target="_blank" rel="noreferrer" aria-label="GitHub">
-            <img src={github} alt="GitHub" className="h-5 invert opacity-40 hover:opacity-100 transition-opacity" />
-          </a>
-          <a href="https://www.linkedin.com/in/fiorella-chilcon/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
-            <img src={linkedin} alt="LinkedIn" className="h-5 invert opacity-40 hover:opacity-100 transition-opacity" />
-          </a>
-          <a href="mailto:fiorella_chilcon@outlook.com" aria-label="Email">
-            <img src={email} alt="Email" className="h-5 invert opacity-40 hover:opacity-100 transition-opacity" />
-          </a>
+          {/* Contacts as an index, with the actual handles on show. Icons hide
+              information; addresses give it away. */}
+          <Reveal delay={0.08} className="col-span-12 self-end lg:col-span-4 lg:col-start-9">
+            {elsewhere.map(({ label, value, href }) => (
+              <a
+                key={label}
+                href={href}
+                target={href.startsWith('mailto') ? undefined : '_blank'}
+                rel="noreferrer"
+                className="group rule flex items-baseline justify-between gap-4 py-4"
+              >
+                <span className="label transition-colors group-hover:text-accent">
+                  {label}
+                </span>
+                <span className="truncate font-mono text-xs text-ink-soft transition-colors group-hover:text-ink">
+                  {value} ↗
+                </span>
+              </a>
+            ))}
+            <div className="rule" />
+          </Reveal>
         </div>
 
-        <p className="text-slate-600 text-xs">
-          Designed & built by Fiorella Chilcon · {new Date().getFullYear()}
-        </p>
-      </div>
+        <div className="rule mt-24 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 pt-6">
+          <span className="label">
+            Designed &amp; built by Fiorella Chilcón in Sydney · {new Date().getFullYear()}
+          </span>
+          <a
+            href="https://github.com/FiorellaChilcon/fiorellachilcon.github.io"
+            target="_blank"
+            rel="noreferrer"
+            className="label transition-colors hover:text-accent"
+          >
+            Source for this site ↗
+          </a>
+        </div>
+      </Section>
     </footer>
   )
 }

@@ -10,14 +10,14 @@ const Game = lazy(() => import('./pages/Game'))
 
 function App() {
   return (
-    <div className="min-h-screen bg-[#0d0d0f]">
+    <div className="grain min-h-screen bg-canvas">
       <Navbar />
       <main>
         <Home />
-        <AboutMe />
         <Projects />
+        <AboutMe />
         <Skills />
-        <Suspense fallback={null}>
+        <Suspense fallback={<div className="h-64" />}>
           <Game />
         </Suspense>
       </main>
