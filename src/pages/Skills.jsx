@@ -11,19 +11,23 @@ const groups = [
   },
   {
     label: 'Back end',
-    items: ['Laravel', 'PHP', 'Ruby on Rails', 'Node.js', 'Express.js', 'Java'],
+    items: ['Ruby on Rails', 'Hotwire', 'Laravel', 'PHP', 'Node.js', 'Express.js', 'Java'],
   },
   {
     label: 'Data & AI',
-    items: ['Python', 'SQL', 'Jupyter Notebooks', 'Databricks', 'Azure AI Search'],
+    items: ['Python', 'SQL', 'Jupyter Notebooks', 'Databricks', 'Azure AI Search', 'Metabase'],
+  },
+  {
+    label: 'Integrations & analytics',
+    items: ['Stripe', 'Twilio', 'Klaviyo', 'Amplitude', 'Google Tag Manager'],
   },
   {
     label: 'Styling & UI',
-    items: ['Tailwind CSS', 'Bulma', 'Storybook'],
+    items: ['Tailwind CSS', 'Bulma', 'Storybook', 'Figma'],
   },
   {
     label: 'Testing',
-    items: ['Playwright', 'Jest'],
+    items: ['Playwright', 'Jest', 'RSpec'],
   },
 ]
 
